@@ -1,0 +1,50 @@
+<main class="painel-container">
+  <header class="painel-header">
+    <div class="cabecalho-texto">
+      <span class="identidade">UniRV / Agricultura de precisão</span>
+      <h2>{{ titulo }}</h2>
+      <p class="subtitulo">{{ fazenda }}</p>
+    </div>
+    <div class="resumo-leituras">
+      <strong>{{ leituras.length }}</strong>
+      <span>leituras registradas</span>
+    </div>
+  </header>
+
+  <section class="secao-dados" aria-label="Leituras de sensores do solo">
+    <div class="secao-titulo">
+      <div>
+        <h3>Leituras do solo</h3>
+        <p>Concentrações dos nutrientes e nível de umidade</p>
+      </div>
+      <span class="legenda">N, P e K em mg/kg</span>
+    </div>
+    <div class="tabela-rolagem">
+      <table class="tabela-sensores">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Data / Hora</th>
+            <th scope="col">N (mg/kg)</th>
+            <th scope="col">P (mg/kg)</th>
+            <th scope="col">K (mg/kg)</th>
+            <th scope="col">Umidade</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of leituras; let i = index">
+            <td class="indice">{{ i + 1 }}</td>
+            <td>{{ s.data }}</td>
+            <td>{{ s.n }}</td>
+            <td>{{ s.p }}</td>
+            <td>{{ s.k }}</td>
+            <td>{{ (s.umidade * 100).toFixed(0) }}%</td>
+            <td><span class="badge" [ngClass]="{'ideal': s.status === 'Ideal', 'alerta': s.status === 'Alerta', 'critico': s.status === 'Critico'}">{{ s.status === 'Critico' ? 'Crítico' : s.status }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <p class="rodape">AgroMonitor IoT · Dados demonstrativos para atividade acadêmica</p>
+</main>
